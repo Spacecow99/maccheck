@@ -1,19 +1,20 @@
 
 # maccheck - MAC address OUI vendor search tool
 
-A simple script that prints the registered OUI for a MAC address.
+A simple script that prints the registrant information for a MAC address. It supports just about every popular method of representing an MAC address.
 
 
-##Usage
+## Usage
 
-The first thing I would recommend doing is to run the get-oui script to update
-our list of OUIs and to sit back while it downloads.
+```
+usage: maccheck.py [-h] [-l PATH] MAC [MAC ...]
 
-    $ ./get-oui.sh
+positional arguments:
+  MAC                   MAC/OUI address to look up.
 
-
-Now we can simply query our maccheck.py script to find the manufacturer for
-a specific OUI. It supports just about every popular method of representing
-an MAC address.
-
-    $ python3 maccheck.py 00:00:00:00:00:00
+optional arguments:
+  -h, --help            show this help message and exit
+  -l PATH, --oui-list PATH
+                        Path to OUI list. (Default:
+                        /Users/user/Programming/maccheck/OUI.json)
+```
