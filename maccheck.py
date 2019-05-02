@@ -54,12 +54,17 @@ class OUIList(object):
         oui = str()
         hexchars = frozenset('abcdefABCDEF0123456789')
         if len(mac_addr) in [8, 14, 17]:  # Handles 00-11-22/0011.2233.4455/00:11:22:33:44:55
-            if '.' in mac_addr or '-' in mac_addr or ':' in mac_addr:
-                mac_addr = mac_addr.split('.').split('-').split(':')
-                if len(mac_addr) not in [3, 6]:
-                    raise SyntaxError("Invalid address format.")
+            if '.' in mac_addr:
+                mac_addr = mac_addr.split('.')
+            elif '-' in mac_addr:
+                mac_addr = mac_addr.split('-')
+            elif ':' in mac_addr:
+                mac_addr = mac_addr.split(':')
             else:
                 raise SyntaxError("Invalid delimiter character.")
+
+            if len(mac_addr) not in [3, 6]:
+                raise SyntaxError("Invalid address format.")
             
             if len(mac_addr[0]) == 4:  # Splits ['0011', '2233', '4455'] in to ['00', '11', '22'] format
                 mac_addr = [mac_addr[0][:2], mac_addr[0][2:], mac_addr[1][:2]]
@@ -121,7 +126,7 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        print()
+        print("")
     except Exception as e:
         sys.stderr.write(("{0}: Unhandled Exception: {1}\n").format(sys.argv[0], str(e)))
         sys.exit(9)
